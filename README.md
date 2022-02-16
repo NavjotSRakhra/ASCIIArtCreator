@@ -4,8 +4,9 @@
 
 ## Introduction
 
-After seeing a YouTube video The Coding Train, I decided to make my own version of ASCII art generator. This is designed
-to work in console, terminal and command prompt. I have tested it on terminal, and it works well.
+After seeing a YouTube video by The Coding Train, I decided to make my own version of ASCII art generator. This is designed
+to work in console, terminal and command prompt. I have tested it on terminal, and it works well. It takes image path as 
+parameter and converts the image into ASCII art.
 
 ## Usage
 
