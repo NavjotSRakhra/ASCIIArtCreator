@@ -14,7 +14,12 @@ To use this program go to the project folder and follow the following steps:
 2. ``javac --source-path src -d . src/ASCIIArtCreator.java``
 3. ``java ASCIIArtCreator resources/AndSymbol``
     * its usage is ``java ASCIIArtCreator <options> <pixels> <path to source image>``
-    * Available options : ``-i : Disables the pop up of a 400x400 scaled version of selected image``
+    * Available options :
+        * ``-i : Disables the pop up of a 400x400 scaled version of selected image``
+        * ``-a : Character set 1``
+        * ``-b : Character set 2``
+        * ``-c : Character set 3``
+    * Note that use **only one** of the a,b or c option at a time otherwise the behaviour is undefined
     * ``<pixels>``  refer to the number of pixels to which the image is to be scaled
 
 ## Technologies used

@@ -20,7 +20,7 @@ public class ASCIIArtCreator {
      */
     private static final String USAGE = "Uasge : java ASCIIArtCreator <options> <pixels(optional)> <source image path>\n" +
             "Options:\n-i to disable image popup\n-a for set of characters 1\n-b for set of characters 2\n-c for set of " +
-            "characters 3\n";
+            "characters 3\nNote that use only one of the a,b or c option at a time otherwise the behaviour is undefined\n";
 
     public static void main(String[] args) {
         boolean popupImage = true;
