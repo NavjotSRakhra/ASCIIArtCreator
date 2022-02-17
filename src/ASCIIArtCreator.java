@@ -1,8 +1,26 @@
 import java.io.IOException;
 
+/**
+ * Parses the command line arguments. First it checks for options. If there are any options it stores the options and
+ * removes them re-creates the array without the options. Then it checks if the number of CLI are valid, if not it prints
+ * usage message. If however, it is valid it passes them accordingly to {@link ImageProcessing} constructors.
+ * <p>
+ * <br>
+ * Static fields
+ * <p>
+ * {@link ASCIIArtCreator#USAGE}
+ *
+ * @author Navjot Singh Rakhra
+ * @version 1.0
+ */
 public class ASCIIArtCreator {
+
+    /**
+     * Message for usage of the program via command line interface in case the user uses it wrongly or needs help.
+     */
+    private static final String USAGE = "Uasge : java ASCIIArtCreator <options> <pixels(optional)> <source image path>\nOptions:\n-i to disable image popup";
+
     public static void main(String[] args) {
-        final String USAGE = "Uasge : java ASCIIArtCreator <options> <pixels(optional)> <source image path>\nOptions:\n-i to disable image popup";
         boolean popupImage = true;
         if (args.length == 0) {
             System.out.println(USAGE);

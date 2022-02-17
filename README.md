@@ -1,12 +1,10 @@
 # ASCII Art Creator
 
----
-
 ## Introduction
 
-After seeing a YouTube video by The Coding Train, I decided to make my own version of ASCII art generator. This is designed
-to work in console, terminal and command prompt. I have tested it on terminal, and it works well. It takes image path as 
-parameter and converts the image into ASCII art.
+After seeing a YouTube video by The Coding Train, I decided to make my own version of ASCII art generator. This is
+designed to work in console, terminal and command prompt. I have tested it on terminal, and it works well. It takes
+image path as parameter and converts the image into ASCII art.
 
 ## Usage
 
@@ -38,8 +36,6 @@ The output with 84 pixels with no options and [AtTheRateSymbol.png](resources/At
 
 * [This Image is Made of Text](https://youtu.be/55iwMYv8tGI)
   by [The Coding Train](https://www.youtube.com/c/TheCodingTrain/)
-
-___
 
 ## License
 

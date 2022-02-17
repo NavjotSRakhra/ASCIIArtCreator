@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * Shows of popup of the scaled image re-scaled to 400x400 pixel.
+ *
+ * @author Navjot Singh Rakhra
+ * @version 1.0
+ */
 public class ImageShower extends JFrame {
     static JFrame frame = new JFrame();
 
