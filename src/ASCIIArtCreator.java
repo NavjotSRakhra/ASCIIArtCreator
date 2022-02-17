@@ -11,7 +11,7 @@ import java.io.IOException;
  * {@link ASCIIArtCreator#USAGE}
  *
  * @author Navjot Singh Rakhra
- * @version 1.0
+ * @version 1.1
  */
 public class ASCIIArtCreator {
 
@@ -19,11 +19,12 @@ public class ASCIIArtCreator {
      * Message for usage of the program via command line interface in case the user uses it wrongly or needs help.
      */
     private static final String USAGE = "Uasge : java ASCIIArtCreator <options> <pixels(optional)> <source image path>\n" +
-            "Options:\n-i to disable image popup\n-a for set of characters 1\n-b for set of characters 2\n-c for set of " +
+            "Options:\n-i to disable image popup\n-s if you wish to render and save the text as image\n-a for set of characters 1\n-b for set of characters 2\n-c for set of " +
             "characters 3\nNote that use only one of the a,b or c option at a time otherwise the behaviour is undefined\n";
 
     public static void main(String[] args) {
         boolean popupImage = true;
+        boolean saveAsImage = false;
         int mode = -1;
         if (args.length == 0) {
             System.out.println(USAGE);
@@ -45,6 +46,10 @@ public class ASCIIArtCreator {
             }
             if (args[0].contains("a")) {
                 mode = -1;
+                isDone = true;
+            }
+            if (args[0].contains("s")) {
+                saveAsImage = true;
                 isDone = true;
             }
             if (isDone) {
@@ -84,14 +89,31 @@ public class ASCIIArtCreator {
             try {
                 ImageProcessing processedImage = new ImageProcessing(args[0]);
                 ImageToAsciiArtConvertor convertor = new ImageToAsciiArtConvertor(processedImage.getSide());
-                if (mode == -1)
-                    System.out.println(convertor.getASCII_1(processedImage.getImage()));
-                else if (mode == 0)
-                    System.out.println(convertor.getASCII_2(processedImage.getImage()));
-                else if (mode == 1)
-                    System.out.println(convertor.getASCII_3(processedImage.getImage()));
-                else
-                    System.out.println(convertor.getASCII_1(processedImage.getImage()));
+                if (mode == -1) {
+                    String text = convertor.getASCII_1(processedImage.getImage());
+                    if (saveAsImage) {
+                        new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+                    }
+                    System.out.println(text);
+                } else if (mode == 0) {
+                    String text = convertor.getASCII_2(processedImage.getImage());
+                    if (saveAsImage) {
+                        new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+                    }
+                    System.out.println(text);
+                } else if (mode == 1) {
+                    String text = convertor.getASCII_3(processedImage.getImage());
+                    if (saveAsImage) {
+                        new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+                    }
+                    System.out.println(text);
+                } else {
+                    String text = convertor.getASCII_1(processedImage.getImage());
+                    if (saveAsImage) {
+                        new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+                    }
+                    System.out.println(text);
+                }
                 if (popupImage)
                     new ImageShower(processedImage.getImage());
             } catch (IOException e) {
@@ -106,14 +128,31 @@ public class ASCIIArtCreator {
             int sides = Integer.parseInt(args[0]);
             ImageProcessing processedImage = new ImageProcessing(args[1], sides);
             ImageToAsciiArtConvertor convertor = new ImageToAsciiArtConvertor(processedImage.getSide());
-            if (mode == -1)
-                System.out.println(convertor.getASCII_1(processedImage.getImage()));
-            else if (mode == 0)
-                System.out.println(convertor.getASCII_2(processedImage.getImage()));
-            else if (mode == 1)
-                System.out.println(convertor.getASCII_3(processedImage.getImage()));
-            else
-                System.out.println(convertor.getASCII_1(processedImage.getImage()));
+            if (mode == -1) {
+                String text = convertor.getASCII_1(processedImage.getImage());
+                if (saveAsImage) {
+                    new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+                }
+                System.out.println(text);
+            } else if (mode == 0) {
+                String text = convertor.getASCII_2(processedImage.getImage());
+                if (saveAsImage) {
+                    new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+                }
+                System.out.println(text);
+            } else if (mode == 1) {
+                String text = convertor.getASCII_3(processedImage.getImage());
+                if (saveAsImage) {
+                    new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+                }
+                System.out.println(text);
+            } else {
+                String text = convertor.getASCII_1(processedImage.getImage());
+                if (saveAsImage) {
+                    new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+                }
+                System.out.println(text);
+            }
             if (popupImage)
                 new ImageShower(processedImage.getImage());
         } catch (IOException e) {

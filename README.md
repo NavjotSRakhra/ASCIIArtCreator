@@ -12,10 +12,11 @@ To use this program go to the project folder and follow the following steps:
 
 1. ``cd ../ASCII\ art``
 2. ``javac --source-path src -d . src/ASCIIArtCreator.java``
-3. ``java ASCIIArtCreator resources/AndSymbol``
+3. ``java ASCIIArtCreator -cs resources/AndSymbol.png``
     * its usage is ``java ASCIIArtCreator <options> <pixels> <path to source image>``
     * Available options :
         * ``-i : Disables the pop up of a 400x400 scaled version of selected image``
+        * ``-s : Adding this option renders and saves the ASCII art as .png image``
         * ``-a : Character set 1``
         * ``-b : Character set 2``
         * ``-c : Character set 3``
@@ -36,6 +37,24 @@ The output with 84 pixels with no options and [AndSymbol.png](resources/AndSymbo
 The output with 84 pixels with no options and [AtTheRateSymbol.png](resources/AtTheRateSymbol.png)
 
 ![alt text](resources/SampleImage2.png)
+
+## ASCII saved as image using ``-s`` option source and rendered images
+
+### Image of cat
+
+![alt text](resources/CatImage1.png)
+
+### ASCII render of the above image (325x325 characters)
+
+![alt text](resources/SampleRender1.png)
+
+### Image of penguin
+
+![alt text](resources/AnimImage1.png)
+
+### ASCII render of the above image (325x325 characters)
+
+![alt text](resources/SampleRender2.png)
 
 ## Sources
 
