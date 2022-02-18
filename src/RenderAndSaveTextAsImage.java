@@ -19,9 +19,6 @@ public class RenderAndSaveTextAsImage {
     private int height, width;
     private String fileName;
 
-    private RenderAndSaveTextAsImage() {
-    }
-
     public RenderAndSaveTextAsImage(int side) {
         this.side = side;
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
@@ -61,6 +58,8 @@ public class RenderAndSaveTextAsImage {
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = image.createGraphics();
         int h = height / side;
+
+        //The below block sets the properties of image to be rendered
         Font font = new Font("Courier New", Font.PLAIN, 15);
         g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -71,11 +70,12 @@ public class RenderAndSaveTextAsImage {
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         g2d.setFont(font);
+
         for (int i = 0; i < textArray.length; i++) {
             g2d.drawString(textArray[i], 0, i * h);
         }
         g2d.dispose();
-        g2d = null;
+
         ImageIO.write(image, "png", new File(fileName));
         image = ImageIO.read(new File(fileName));
         int maxDim = Math.max(height, width);
@@ -84,7 +84,6 @@ public class RenderAndSaveTextAsImage {
         Graphics g = image.getGraphics();
         g.drawImage(im, 0, 0, null);
         g.dispose();
-        g = null;
         ImageIO.write(image, "png", new File(fileName));
     }
 }

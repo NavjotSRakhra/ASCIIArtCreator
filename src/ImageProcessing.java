@@ -15,11 +15,8 @@ import java.net.URL;
  * @version 1.0
  */
 public class ImageProcessing {
-    private int side;
-    private BufferedImage image;
-
-    private ImageProcessing() {
-    }
+    private final int side;
+    private final BufferedImage image;
 
     /**
      * The constructor sets side to default value i.e. 48 pixels, after that it reads the {@linkplain BufferedImage} and

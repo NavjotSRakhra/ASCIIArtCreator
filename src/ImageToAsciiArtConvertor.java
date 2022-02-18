@@ -8,17 +8,11 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class ImageToAsciiArtConvertor {
+    private final static String[] ASCII_CHARACTER_SETS = new String[]{" .,_-=+:;cba!?1023456789$W#@Ñ", " ░▄▀█", " .,_-=+:;cba!?1023456789$W#@Ñ░", " .,_-=+:;cba!?1023456789$W#@Ñ░▄▀█"};
+    private final static int[] ASCII_CHARACTER_SETS_LENGTH = new int[]{ASCII_CHARACTER_SETS[0].length(), ASCII_CHARACTER_SETS[1].length(), ASCII_CHARACTER_SETS[2].length(), ASCII_CHARACTER_SETS[3].length()};
 
-    private final static String ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY = " ░▄▀█";
-    private final static String ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY_1 = " .,_-=+:;cba!?1023456789$W#@Ñ";
-    private final static String ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY_2 = "█▀▄░ ";
-    private final static String ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY_3 = " .,_-=+:;cba!?▄▀1023456789$W#@Ñ░█";
-    private final static int LENGTH = ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY.length();
-    private final static int LENGTH_1 = ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY_1.length();
-    private final static int LENGTH_2 = ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY_2.length();
-    private final static int LENGTH_3 = ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY_3.length();
 
-    private int side;
+    private final int side;
 
     /**
      * Initializes the side global variable.
@@ -29,14 +23,16 @@ public class ImageToAsciiArtConvertor {
         this.side = side;
     }
 
+
     /**
-     * Maps the average of red, blue and green value of grayscale {@link BufferedImage} to the ASCII art static string
-     * in the order of increasing/decreasing pixel density.
+     * Maps the average of red, blue and green value of grayscale {@link BufferedImage} to the given {@code characterSet}
+     * and converts the image into ASCII art
      *
-     * @param img {@link BufferedImage} whose height = width = side that was initialized for this object.
+     * @param img  {@link BufferedImage} whose height = width = side that was initialized for this object.
+     * @param code The code of available character sets
      * @return Returns the ASCII art string.
      */
-    public String getASCII_1(BufferedImage img) {
+    public String getAsciiArt(BufferedImage img, int code) {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < side; i++) {
             for (int j = 0; j < side; j++) {
@@ -44,58 +40,11 @@ public class ImageToAsciiArtConvertor {
                 int rgb = color.getRed() + color.getGreen() + color.getBlue();
                 rgb /= 3;
                 double rgb2 = (double) rgb / 255;
-                int index = (int) Math.round(rgb2 * (LENGTH_3 - 1));
-                output.append(ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY_3.charAt(index));
+                int index = (int) Math.round(rgb2 * (ASCII_CHARACTER_SETS_LENGTH[code] - 1));
+                output.append(ASCII_CHARACTER_SETS[code].charAt(index));
             }
             output.append("\n");
         }
         return output.toString();
     }
-
-    /**
-     * Maps the average of red, blue and green value of grayscale {@link BufferedImage} to the ASCII art static string
-     * in the order of increasing/decreasing pixel density.
-     *
-     * @param img {@link BufferedImage} whose height = width = side that was initialized for this object.
-     * @return Returns the ASCII art string.
-     */
-    public String getASCII_2(BufferedImage img) {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < side; i++) {
-            for (int j = 0; j < side; j++) {
-                Color color = new Color(img.getRGB(j, i));
-                int rgb = color.getRed() + color.getGreen() + color.getBlue();
-                rgb /= 3;
-                double rgb2 = (double) rgb / 255;
-                int index = (int) Math.round(rgb2 * (LENGTH - 1));
-                output.append(ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY.charAt(index));
-            }
-            output.append("\n");
-        }
-        return output.toString();
-    }
-
-    /**
-     * Maps the average of red, blue and green value of grayscale {@link BufferedImage} to the ASCII art static string
-     * in the order of increasing/decreasing pixel density.
-     *
-     * @param img {@link BufferedImage} whose height = width = side that was initialized for this object.
-     * @return Returns the ASCII art string.
-     */
-    public String getASCII_3(BufferedImage img) {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < side; i++) {
-            for (int j = 0; j < side; j++) {
-                Color color = new Color(img.getRGB(j, i));
-                int rgb = color.getRed() + color.getGreen() + color.getBlue();
-                rgb /= 3;
-                double rgb2 = (double) rgb / 255;
-                int index = (int) Math.round(rgb2 * (LENGTH_1 - 1));
-                output.append(ASCII_CHARACTERS_SORTED_ACCORDING_TO_DENSITY_1.charAt(index));
-            }
-            output.append("\n");
-        }
-        return output.toString();
-    }
-
 }

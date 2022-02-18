@@ -9,31 +9,43 @@ import java.io.IOException;
  * Static fields
  * <p>
  * {@link ASCIIArtCreator#USAGE}
+ * {@link ASCIIArtCreator#popupImage}
+ * {@link ASCIIArtCreator#saveAsImage}
+ * {@link ASCIIArtCreator#mode}
  *
  * @author Navjot Singh Rakhra
  * @version 1.1
  */
 public class ASCIIArtCreator {
-
     /**
      * Message for usage of the program via command line interface in case the user uses it wrongly or needs help.
      */
     private static final String USAGE = "Uasge : java ASCIIArtCreator <options> <pixels(optional)> <source image path>\n" +
             "Options:\n-i to disable image popup\n-s if you wish to render and save the text as image\n-a for set of characters 1\n-b for set of characters 2\n-c for set of " +
-            "characters 3\nNote that use only one of the a,b or c option at a time otherwise the behaviour is undefined\n";
+            "characters 3\n-d for set of characters 4\nNote that use only one of the a,b or c option at a time otherwise the behaviour is undefined\n";
+    private static boolean popupImage = true;
+    private static boolean saveAsImage = false;
+    private static int mode = -1;
 
     public static void main(String[] args) {
-        boolean popupImage = true;
-        boolean saveAsImage = false;
-        int mode = -1;
-        if (args.length == 0) {
-            System.out.println(USAGE);
-            return;
-        }
+        parseArguments(args);
+    }
+
+    /**
+     * Pareses the options(Strings that start with '-'), sets the state of global variables and returns a new array without those options
+     *
+     * @param args Command line arguments.
+     * @return Returns a new array without options.
+     */
+    private static String[] parseOptionsAndSetStates(String[] args) {
         while (args[0].startsWith("-")) {
             boolean isDone = false;
             if (args[0].contains("i")) {
                 popupImage = false;
+                isDone = true;
+            }
+            if (args[0].contains("d")) {
+                mode = 2;
                 isDone = true;
             }
             if (args[0].contains("c")) {
@@ -69,9 +81,11 @@ public class ASCIIArtCreator {
                 mode = 0;
             } else if (args[0].equals("-c")) {
                 mode = 1;
+            } else if (args[0].equals("-d")) {
+                mode = 1;
             } else {
-                System.out.println(USAGE);
-                return;
+                printUsage();
+                System.exit(0);
             }
             String[] argsCopy = new String[args.length];
             System.arraycopy(args, 0, argsCopy, 0, argsCopy.length);
@@ -80,79 +94,37 @@ public class ASCIIArtCreator {
                 args[i - 1] = argsCopy[i];
             }
         }
+        return args;
+    }
 
-        if (args.length == 0 || args.length > 2) {
-            System.out.println(USAGE);
-            return;
+    private static void printUsage() {
+        System.out.println(USAGE);
+    }
+
+    private static void printAndPerformActionsAfterScalingWithDefaultPixelCount(String filePath) {
+        try {
+            ImageProcessing processedImage = new ImageProcessing(filePath);
+            ImageToAsciiArtConvertor convertor = new ImageToAsciiArtConvertor(processedImage.getSide());
+            String text = convertor.getAsciiArt(processedImage.getImage(), mode + 1);
+            if (saveAsImage)
+                new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+            System.out.println(text);
+            if (popupImage)
+                new ImageShower(processedImage.getImage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-        if (args.length == 1) {
-            try {
-                ImageProcessing processedImage = new ImageProcessing(args[0]);
-                ImageToAsciiArtConvertor convertor = new ImageToAsciiArtConvertor(processedImage.getSide());
-                if (mode == -1) {
-                    String text = convertor.getASCII_1(processedImage.getImage());
-                    if (saveAsImage) {
-                        new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
-                    }
-                    System.out.println(text);
-                } else if (mode == 0) {
-                    String text = convertor.getASCII_2(processedImage.getImage());
-                    if (saveAsImage) {
-                        new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
-                    }
-                    System.out.println(text);
-                } else if (mode == 1) {
-                    String text = convertor.getASCII_3(processedImage.getImage());
-                    if (saveAsImage) {
-                        new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
-                    }
-                    System.out.println(text);
-                } else {
-                    String text = convertor.getASCII_1(processedImage.getImage());
-                    if (saveAsImage) {
-                        new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
-                    }
-                    System.out.println(text);
-                }
-                if (popupImage)
-                    new ImageShower(processedImage.getImage());
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-            return;
-        }
+    }
 
-        assert args.length == 2;
-
+    private static void printAndPerformActionsAfterScaling(String[] args) {
         try {
             int sides = Integer.parseInt(args[0]);
             ImageProcessing processedImage = new ImageProcessing(args[1], sides);
             ImageToAsciiArtConvertor convertor = new ImageToAsciiArtConvertor(processedImage.getSide());
-            if (mode == -1) {
-                String text = convertor.getASCII_1(processedImage.getImage());
-                if (saveAsImage) {
-                    new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
-                }
-                System.out.println(text);
-            } else if (mode == 0) {
-                String text = convertor.getASCII_2(processedImage.getImage());
-                if (saveAsImage) {
-                    new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
-                }
-                System.out.println(text);
-            } else if (mode == 1) {
-                String text = convertor.getASCII_3(processedImage.getImage());
-                if (saveAsImage) {
-                    new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
-                }
-                System.out.println(text);
-            } else {
-                String text = convertor.getASCII_1(processedImage.getImage());
-                if (saveAsImage) {
-                    new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
-                }
-                System.out.println(text);
-            }
+            String text = convertor.getAsciiArt(processedImage.getImage(), mode + 1);
+            if (saveAsImage)
+                new RenderAndSaveTextAsImage(processedImage.getSide()).save(text);
+            System.out.println(text);
             if (popupImage)
                 new ImageShower(processedImage.getImage());
         } catch (IOException e) {
@@ -160,5 +132,27 @@ public class ASCIIArtCreator {
         } catch (NumberFormatException e) {
             System.out.println("Pixels should be an integer.");
         }
+    }
+
+    private static void parseArguments(String[] args) {
+        if (args.length == 0) {
+            printUsage();
+            return;
+        }
+
+        args = parseOptionsAndSetStates(args);
+
+        if (args.length == 0 || args.length > 2) {
+            printUsage();
+            return;
+        }
+        if (args.length == 1) {
+            printAndPerformActionsAfterScalingWithDefaultPixelCount(args[0]);
+            return;
+        }
+
+        // args length = 2;
+        printAndPerformActionsAfterScaling(args);
+
     }
 }

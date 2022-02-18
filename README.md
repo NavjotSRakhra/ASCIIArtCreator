@@ -20,7 +20,8 @@ To use this program go to the project folder and follow the following steps:
         * ``-a : Character set 1``
         * ``-b : Character set 2``
         * ``-c : Character set 3``
-    * Note that use **only one** of the a,b or c option at a time otherwise the behaviour is undefined
+        * ``-d : Character set 4``
+    * Note that use **only one** of the a, b, c or d option at a time otherwise the behaviour is undefined
     * ``<pixels>``  refer to the number of pixels to which the image is to be scaled
 
 ## Technologies used
